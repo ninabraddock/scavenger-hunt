@@ -1,0 +1,23 @@
+
+
+
+  r rr  r  rr  rrr   rrr  rrr     r rr
+  rr  r r r   r   r r    r        rr  r
+  r   r rr    rrrrr  rrr  rrr     r   r
+  rr  r r     r         r    r    rr  r
+  r rr  r      rrrr  rrr  rrr     r rr
+  r                               r
+  r                               r
+               y
+             yyyyy  yyy
+               y   y   y
+               y   y   y
+               y    yyy
+
+   bbbbbb bbbbbb  bbb   bbbbbb bbbbbb
+   bb  bb bbbbbb  bbb   bb  bb bbbbbb
+   bb       bb   bb bb  bb  bb   bb
+   bbbbbb   bb   bbbbb  bbbbb    bb
+       bb   bb  bbbbbbb bb bbb   bb
+   bb  bb   bb  bb   bb bb  bbb  bb
+   bbbbbb   bb  bb   bb bb   bbb bb

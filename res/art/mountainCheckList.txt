@@ -1,0 +1,14 @@
+
+
+
+
+  bb   b                 b         yyyy    y   y     yy    y        y
+  b                  bb  b   b    y        yy  y    y  y    y      y
+ bbb   b    bbbb    b   b          yyyy    y y y    y  y    y  y   y
+  b    b    b   b   b  b b   b         y   y  yy    y  y    y y y y
+  b    b    b   b    bb  b        yyyyy    y   y     yy      y   y
+
+
+
+
+

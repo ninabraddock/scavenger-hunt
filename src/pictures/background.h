@@ -1,0 +1,13 @@
+//
+// Created by Nina Braddock on 11/30/23.
+//
+
+#ifndef FINAL_PROJECT_NBRADDOC_RROSE1_BACKGROUND_H
+#define FINAL_PROJECT_NBRADDOC_RROSE1_BACKGROUND_H
+
+class background {
+
+};
+
+
+#endif //FINAL_PROJECT_NBRADDOC_RROSE1_BACKGROUND_H
