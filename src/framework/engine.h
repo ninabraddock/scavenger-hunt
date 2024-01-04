@@ -68,9 +68,9 @@ private:
     unique_ptr<Rect> checkBoxBeach;
     unique_ptr<Rect> checkBoxCity;
     unique_ptr<Rect> checkBoxMountains;
-    vector <unique_ptr<Rect>> buildingWindows2;
-    vector <unique_ptr<Rect>> buildings3;
-    unique_ptr<Rect> specialBuilding;
+    vector <unique_ptr<Rect>> buildingWindows;
+    vector <unique_ptr<Rect>> buildings;
+    unique_ptr<Rect> specialWindow;
     unique_ptr <Rect> user;
     vector <unique_ptr<Triangle>> mountains;
     unique_ptr <Triangle> snow;

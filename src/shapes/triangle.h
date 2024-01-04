@@ -30,6 +30,9 @@ public:
     float getTop() const override;
     float getBottom() const override;
 
+//    float getHeight() const override;
+//    float getWidth() const override;
+
     bool isOverlapping(const Shape& other) const override;
 };
 

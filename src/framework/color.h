@@ -1,5 +1,5 @@
-#ifndef FINAL_PROJECT_NBRADDOC_RROSE1_COLOR_H
-#define FINAL_PROJECT_NBRADDOC_RROSE1_COLOR_H
+#ifndef SCAVENGER-HUNT
+#define SCAVENGER-HUNT
 
 #include <glm/glm.hpp>
 #include <iostream>
@@ -76,4 +76,4 @@ const color DARK_GRAY = color(0.2f, 0.2f, 0.2f);
 //    void setAlpha(float a) { alpha = a; }
 //};
 
-#endif //FINAL_PROJECT_NBRADDOC_RROSE1_COLOR_H
+#endif //SCAVENGER-HUNT

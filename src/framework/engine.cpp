@@ -14,12 +14,8 @@ const color purple(119/255.0, 11/255.0, 224/255.0);
 const color mediumPurple(119/255.0, 11/255.0, 224/255.0, 0.7);
 const color lightPurple(119/255.0, 11/255.0, 224/255.0, 0.3);
 const color invisiblePurple(119/255.0, 11/255.0, 224/255.0, 0);
-
-
 const color black(0, 0, 0);
 const color gray(75/255.0, 75/255.0, 75/255.0);
-const color lightGray(140/255.0, 140/255.0, 140/255.0);
-const color orange(1, 163/255.0, 22/255.0);
 
 //TODO: each list will have to be its own state
 const int userSize = 20;
@@ -76,7 +72,7 @@ void Engine::initShaders() {
 
     // Load shader into shader manager and retrieve it
     shapeShader = this->shaderManager->loadShader("../res/shaders/shape.vert", "../res/shaders/shape.frag",  nullptr, "shape");
-
+    //from M4AP
     fontRenderer = make_unique<FontRenderer>(shaderManager->getShader("text"), "../res/fonts/MxPlus_IBM_BIOS.ttf", 24);
 
     // Set uniforms that never change
@@ -92,12 +88,6 @@ void Engine::initShapes() {
     //readFromFile("../res/art/mountainCheckList.txt");
     //readFromFile("../res/art/restartScreen.txt");
     readFromFile1("../res/art/startScreen.txt");
-
-    // TODO: Initialize the user to be a 10x10 white block centered at (0, 0)
-    user = make_unique<Rect>(shapeShader, vec2(0, 0), vec2(10, 10), white);
-
-    // Init grass
-    grass = make_unique<Rect>(shapeShader, vec2(width/2, 50), vec2(width, height / 5), grassGreen);
 
     /*path*/
     user = make_unique<Rect>(shapeShader, vec2(width/25, height/2), vec2(userSize,userSize), white);
@@ -122,11 +112,9 @@ void Engine::initShapes() {
     invisibleKeepOnPath.push_back(make_unique<Rect>(shapeShader, vec2(newRectX + 80, 0), vec2(newRectWidth/1, height/1.11), skyBlue));
     invisibleKeepOnPath.push_back(make_unique<Rect>(shapeShader, vec2(width/2, 0), vec2(width/10, height/10), skyBlue));
 
-    /*checklist*/
-//    checkList = make_unique<Rect>(shapeShader, vec2(width/2, height/2), vec2(width/2, height/1.5), lightPurple);
-
     /*mountains*/
     // Init mountains and snow
+    grass = make_unique<Rect>(shapeShader, vec2(width/2, 50), vec2(width, height / 5), grassGreen);
     mountains.push_back(make_unique<Triangle>(shapeShader, vec2(width/4, 300), vec2(width, 400), darkGreen));
     mountains.push_back(make_unique<Triangle>(shapeShader, vec2(2*width/3, 300), vec2(width, 500), darkGreen2));
     snow = make_unique<Triangle>(shapeShader, vec2(2*width/3, 510), vec2(width/6, 75), white);
@@ -156,55 +144,80 @@ void Engine::initShapes() {
     vec2 size2 (radius, radius);
     specialBubble = make_unique<Circle>(shapeShader, position2, size2, lightPurple);
     specialBubble2 = make_unique<Rect>(shapeShader, vec2(200.0, 125.0), vec2(45.0, 45.0), invisiblePurple);
-
-//    bubbles.push_back(std::move(bubble2));
-
+    
     /*city: add buildings*/
     // Init buildings from closest to furthest
     int totalBuildingWidth = 0;
     vec2 buildingSize;
-    int i = 0; //building number
+    int buildingNumber = 0;
 
     //TODO: vec of diff colors used for the windows
-    //note tha dark blue is the special window color
+    //note that dark blue is the special window color
 //    vector<color> windowColor = vector<skyBlue, grassGreen, darkGreen, purple, lightPurple>;
     //create a vector of colors to loop through for the windows
     // get 3 random floats between 0 and 1 for RGB
     vec4 randomColor(rand() % 255 / 255.0f, rand() % 255 / 255.0f, rand() % 255 / 255.0f, rand() % 120 + 135);
     //if the color has not been selected from, then produce another color as the special window color
 //    if(randomColor)
+    //Populate this vector of gray buildings, Building height between 200-400
     while (totalBuildingWidth < width + 200) {
         // TODO: Populate this vector of gray buildings
         // Building height between 200-400
         buildingSize.y = rand() % 201 + 200;
         // Building width between 100-200
         buildingSize.x = rand() % 101 + 50;
-        buildings3.push_back(make_unique<Rect>(shapeShader,
+        buildings.push_back(make_unique<Rect>(shapeShader,
                                                vec2(totalBuildingWidth + (buildingSize.x / 2.0) + 5,
                                                     ((buildingSize.y / 2.0) + 50)),
                                                buildingSize, gray));
 
         //TODO: if you have time put this in a for loop
-        for(int j = 20; j < buildings3[i]->getTop(); j += 40){
+        for(int j = 20; j < buildings[buildingNumber]->getTop(); j += 40){
             //left windows (+)
-            buildingWindows2.push_back(make_unique<Rect>(shapeShader,
-                                                         vec2(buildings3[i]->getLeft() + 40,
-                                                              buildings3[i]->getTop() - j),
+            buildingWindows.push_back(make_unique<Rect>(shapeShader,
+                                                         vec2(buildings[buildingNumber]->getLeft() + 20,
+                                                              buildings[buildingNumber]->getTop() - j),
                                                          vec2(20, 20), white));
             //right windows (-)
-            buildingWindows2.push_back(make_unique<Rect>(shapeShader,
-                                                         vec2(buildings3[i]->getRight() - 20,
-                                                              buildings3[i]->getTop() - j),
+            buildingWindows.push_back(make_unique<Rect>(shapeShader,
+                                                         vec2(buildings[buildingNumber]->getRight() - 20,
+                                                              buildings[buildingNumber]->getTop() - j),
                                                          vec2(20, 20), white));
             //special window
-            specialBuilding = make_unique<Rect>(shapeShader,
-                                                vec2(buildings3[0]->getLeft() + 40,
-                                                     buildings3[0]->getTop() - 20),
+            specialWindow = make_unique<Rect>(shapeShader,
+                                                vec2(buildings[0]->getLeft() + 20,
+                                                     buildings[0]->getTop() - 20),
                                                 vec2(20, 20), darkBlue);
         }
-        ++i;
+        ++buildingNumber;
+
         totalBuildingWidth += buildingSize.x + 5;
     }
+//        ++i;
+//        totalBuildingWidth += buildingSize.x + 5;
+        //outside for loop checks for the height constraints of the window
+//        for(int windowBuffer = 20; windowBuffer < buildings[buildingNumber]->getTop(); windowBuffer += 40){
+//            //includes buffer on either side of the building, uniform window spacing
+//            int windowSpace = (buildings[buildingNumber]->getRight() - windowBuffer) - buildings[buildingNumber]->getLeft();
+//            // find the largest number of windows that can fit between left and right side of a building
+//            int totalBuildingWindowNumber = windowSpace/(windowBuffer*2);
+//            buildingWindows.push_back(make_unique<Rect>(shapeShader,
+//                                                            vec2(buildings[buildingNumber]->getLeft() + windowBuffer,
+//                                                                 buildings[buildingNumber]->getTop() - windowBuffer),
+//                                                            vec2(20, 20), white));
+//            int buildingWindowNumber = 0;
+//            if(buildingWindowNumber <= totalBuildingWindowNumber){
+//                //start making cols of windows from the left side of the right of the first window made above
+//                for(buildingWindows[buildingWindowNumber]->getRight(); buildingWindows[buildingWindowNumber]->getRight() <= buildings[buildingNumber]->getRight() - windowBuffer; buildingWindows[buildingWindowNumber]->getRight() + windowBuffer){
+//                    buildingWindows.push_back(make_unique<Rect>(shapeShader,
+//                                                                vec2(buildingWindows[buildingWindowNumber]->getRight() + windowBuffer,
+//                                                                     buildings[buildingNumber]->getTop() - windowBuffer),
+//                                                                vec2(20, 20), white));
+//                }
+//            }
+//        }
+        ++buildingNumber;
+        totalBuildingWidth += buildingSize.x + 5;
 }
 
 void Engine::processInput() {
@@ -217,11 +230,6 @@ void Engine::processInput() {
         else if (glfwGetKey(window, key) == GLFW_RELEASE)
             keys[key] = false;
     }
-
-    //TODO: change found to actually work if the user clicks the item asked.
-//    bool found = true;
-//    if (screen == scavengerHunt1 && found)
-//        screen = checkList; //change the state to the checklist if another item has been checked off
     //don't let the user go off the path
     switch (screen) {
         case start: {
@@ -324,10 +332,10 @@ void Engine::processInput() {
             glfwGetCursorPos(window, &MouseX, &MouseY);
             MouseY = height - MouseY; // Flip y-axis
             mousePressed = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS;
-            if (MouseX > specialBuilding->getLeft() &&
-                MouseX < specialBuilding->getRight() &&
-                MouseY > specialBuilding->getBottom() &&
-                MouseY < specialBuilding->getTop() &&
+            if (MouseX > specialWindow->getLeft() &&
+                MouseX < specialWindow->getRight() &&
+                MouseY > specialWindow->getBottom() &&
+                MouseY < specialWindow->getTop() &&
                 mousePressed) {
                 locationsVisited+=1;
                 cout <<"1 I have been to this many locations: " <<endl;
@@ -483,7 +491,6 @@ void Engine::render() {
             }
             break;
         }
-        //Add the rest of the cases here for the checklist Screens
         case path: {
             glClearColor(skyBlue.red, skyBlue.green, skyBlue.blue, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
@@ -513,7 +520,7 @@ void Engine::render() {
                 alreadyMountain = true;
             }
             if ((sidePathTopRightOverlap->isOverlapping(*user)) && !alreadyBeach){ //m is the diff side paths
-                screen = beachCheckList;
+                screen = beach;
                 alreadyBeach = true;
             }
             if ((sidePathBottomRightOverlap->isOverlapping(*user)) && !alreadyCity) { //m is the diff side paths
@@ -564,18 +571,18 @@ void Engine::render() {
             glClearColor(skyBlue.red, skyBlue.green, skyBlue.blue, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
             cout << "at the city" << endl;
-            for (const unique_ptr<Rect> &b3: buildings3) { //green
+            for (const unique_ptr<Rect> &b3: buildings) { //green
                 b3->setUniforms();
                 b3->draw();
             }
 
-            for (const unique_ptr<Rect> &bW2: buildingWindows2) { //blue
+            for (const unique_ptr<Rect> &bW2: buildingWindows) { //blue
                 bW2->setUniforms();
                 bW2->draw();
             }
 
-            specialBuilding->setUniforms();
-            specialBuilding->draw();
+            specialWindow->setUniforms();
+            specialWindow->draw();
 
             grass->setUniforms();
             grass->draw();

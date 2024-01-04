@@ -72,6 +72,8 @@ class Shape {
         virtual float getRight() const = 0;
         virtual float getTop() const = 0;
         virtual float getBottom() const = 0;
+//        virtual float getHeight() const = 0;
+//        virtual float getWidth() const = 0;
 
         // Color Functions
         vec4 getColor4() const;

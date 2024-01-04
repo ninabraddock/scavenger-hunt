@@ -33,6 +33,9 @@ public:
     float getTop() const override;
     float getBottom() const override;
 
+
+//    float getHeight() const override;
+//    float getWidth() const override;
     // TODO: decide if it makes sense to use static overlapping functions
     static bool isOverlapping(const Rect& r1, const Rect& r2);
     bool isOverlapping(const Rect& other) const;

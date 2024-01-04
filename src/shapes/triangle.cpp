@@ -38,6 +38,9 @@ float Triangle::getRight() const    { return pos.x + (size.x / 2); }
 float Triangle::getTop() const      { return pos.y + (size.y / 2); }
 float Triangle::getBottom() const   { return pos.y - (size.y / 2); }
 
+//float Triangle::getHeight() const      { return (pos.x + (size.x / 2)) - (pos.x + (size.x / 2)); }
+//float Triangle::getWidth()  const      { return (pos.y + (size.y / 2)) - (pos.y + (size.y / 2)); }
+
 // Is the shape overlapping the top point?
 bool Triangle::isOverlapping(const Shape &other) const {
     return other.getLeft() <= pos.x && other.getRight() >= pos.x &&
