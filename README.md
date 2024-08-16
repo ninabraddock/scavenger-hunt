@@ -1,4 +1,4 @@
-# Scavenger /hunt
+# Scavenger Hunt
 
 ### Contributors: 
 Nina Braddock & Rachel Rose
